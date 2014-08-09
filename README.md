@@ -1,5 +1,4 @@
-slim-ramp
-=========
+# slim-ramp <img src="logo/slim-ramp-128.png" align="right">
 
 Ramp a Slim JSON Schema to a [JSON Schema](http://json-schema.org)
 
