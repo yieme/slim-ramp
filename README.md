@@ -17,7 +17,7 @@ While [Schema Ramp](https://github.com/yieme/schema-ramp) would take
 }
 ```
 
-and return
+and return [JSON Schema](http://json-schema.org)
 
 ```js
 {
@@ -98,7 +98,7 @@ So if we want to be more verbose to begin with we can have:
 }
 ```
 
-and then get
+and get [JSON Schema](http://json-schema.org)
 
 ```
 {
