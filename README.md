@@ -87,12 +87,12 @@ So if we want to be more verbose to begin with we can have:
 
 ```
 {
-  !name(80),
+  !name,
   !email(320)
   role[user|admin]:user,
   address {
     streetAddress(120),
-    city(80),
+    city,
     zip.int[00000..99999]
   }
 }
@@ -118,7 +118,7 @@ and get [JSON Schema](http://json-schema.org)
           "title": "Name",
           "description": "Name",
           "minLength": 0,
-          "maxLength": 800
+          "maxLength": 80
         },
         "email": {
           "type": "string",
@@ -172,11 +172,17 @@ and get [JSON Schema](http://json-schema.org)
 }
 ```
 
+## Special Attributes
+
+- ```!fieldname``` field is required
+- ```fieldname^``` field is hidden
+- ```$fieldname``` define the object as a special reference type
+
 ## Types
 
-Regular types
+#### Regular types
 
-- ```.str``` for a string (this is the default and include injection filtering)
+- ```.str``` for an 80 character string (default)
 - ```.*``` for a raw string
 - ```.int`` or ```#``` for an integer
 - ```.num``` or ```..``` for a number
@@ -184,10 +190,48 @@ Regular types
 - ```{ }``` wraps objects
 - ```[ ]``` wraps arrays unless containing pipe ```|``` lists or numeric ```..``` ranges
 
-Special types
+#### Special string types
 
-- ```.email``` or ```@``` for a 320 character string with email address regular expression pattern
+- ```.upper``` for an uppercase string
+- ```.lower``` for a lowercase string
+- ```.camel``` for a camelcase string
+- ```.dash```  for a dasherize string
+- ```.under``` for an underscore string
+- ```.alpha``` for an alpha string
+- ```.alphanum``` for an alphanumeric string
+- ```.md``` for a markdown string (default length 8k)
+- ```.email``` or ```@``` for a 320 characters with email address regular expression pattern
 - ```.url``` or ```/``` for a 255 character string with a URL regular express pattern
+- ```.pwd``` for a 40 character password
+- ```.tel``` for a phone number
+- ```.date``` for a date
+- ```.time``` for a time
+- ```.stamp``` for a date time stamp
+- ```.color``` for a css color
+- ```.ssn``` for a social security number string
+- ```.country``` 2 character country validated ISO country code
+- ```.base64``` base64 encoded string
+
+#### Special object types
+
+- ```.geo``` for object ```{ latitude:num, longitude:num```}
+- ```.usaddr``` for object ```{ !address1, address2, !city, !state, !zip[00000..99999] }```
+- ```.address``` for object ```{ !address1, address2, !city, region, postal, !country }```
+
+> Note: Strings include injection filtering unless otherwise constrained
+
+## Special field names
+
+Field name that contain the following words will have the specified defaults
+
+- ```address``` will have a default length of 120
+- ```email``` will have a default type of ```.email```
+- ```phone``` will have a default type of ```.tel```
+- ```sms``` will have a default type of ```.tel```
+- ```date``` will have a default type of ```.date```
+- ```time``` will have a default type of ```.time```
+- ```markdown``` will have a default type of ```.md```
+- ```country``` will have a default type of ```.country```
 
 ## License
 
